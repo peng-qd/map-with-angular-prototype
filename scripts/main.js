@@ -1,4 +1,5 @@
 require.config({
+	urlArgs: "v=" + window.buildNumber,
 	paths: {
 		angular: '/vendor/angular',
 		jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min',

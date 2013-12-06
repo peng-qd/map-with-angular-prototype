@@ -51,6 +51,16 @@
 		</div>
 	</div>
 
-	<script src="vendor/require.js" data-main="scripts/main"></script>
+
+	<script type="text/javascript">
+		var buildNumber = 0.21;
+	    var require = {
+	    	baseUrl: '/scripts/',
+	        urlArgs : "v=" + buildNumber,
+	        deps : ['main']
+	    };
+	</script>
+	<script src="vendor/require.js"></script>
+	
 </body>
 </html>
