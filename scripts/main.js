@@ -1,5 +1,5 @@
 require.config({
-	urlArgs: "v=" + window.buildNumber,
+	urlArgs: "v=" + window.mySettings.buildNumber,
 	paths: {
 		async: '/vendor/requirejs/async',
 		angular: '/vendor/angularjs/angular',
