@@ -1,0 +1,1 @@
+define(['./google-place','./placehold'], function () {});

@@ -15,7 +15,7 @@ define([
 
 // bootstrap the AuglarJS after Google API is loade and geo location is processed.
 function init(ng) {
-	require(['async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'], function() {
+	require(['async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places'], function() {
 		if (navigator.geolocation) {
 			console.log('browser supports geo location');
 			navigator.geolocation.getCurrentPosition(

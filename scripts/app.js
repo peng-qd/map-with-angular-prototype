@@ -2,7 +2,7 @@ define([
     'angular',
     'angularRoute',
     'controllers/index',
-    //'directives/index',
+    'directives/index',
     //'filters/index',
     //'services/index'
 ], function (ng) {
@@ -10,7 +10,7 @@ define([
 
     return ng.module('app', [
         'app.controllers',
-        //'app.directives',
+        'app.directives',
         //'app.filters',
         //'app.services',
         'ngRoute'
