@@ -35,7 +35,7 @@ function init(ng) {
 				{timeout:3000}
 			);
 		} else {
-			console.log('browser does not support geo location');
+			window.console.log('browser does not support geo location');
 			ng.bootstrap(document, ['app']);
 		}
 		

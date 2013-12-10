@@ -1,4 +1,4 @@
 map-with-angular-prototype
 ==========================
 
-Structure is modied based on http://www.startersquad.com/blog/angularjs-requirejs/
+Structure is modified based on http://www.startersquad.com/blog/angularjs-requirejs/
