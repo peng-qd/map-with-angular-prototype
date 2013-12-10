@@ -16,7 +16,7 @@ define(['./module'], function(controllers) {
 			$scope.chosenPlace = '';
 			$scope.chosenPoleNumber = '';
 			$scope.isLoading = false;
-			$scope.polesResult = {};
+			$scope.poles = {};
 
 			// When click the search button, the map will be changed to the chosen address
 			$scope.searchAddress = function() {
@@ -27,26 +27,90 @@ define(['./module'], function(controllers) {
 				} else if(result.type == 'location') {
 					$scope.myMap.setCenter(result.value);
 					$scope.myMap.setZoom(18);
-				} else {
-					window.alert('no location is found!');
 				}
 			};
 
 			// When zoom > 17, display the poles
-			$scope.setMarkers = function(zoom) {
+			$scope.zoomChanged = function(zoom) {
 				console.log('Zoom now is: ' + zoom);
 				if(zoom > 17) {
 					$scope.isLoading = true;
 					var bounds = $scope.myMap.getBounds();
 		            var ne = bounds.getNorthEast();
 		            var sw = bounds.getSouthWest();
-		            var viewbox = { "bottomleft": { "lat": sw.lat(), "lng": sw.lng() }, "topright": { "lat": ne.lat(), "lng": ne.lng()} };
-					$scope.polesResult = poleData.getPoles({ box: viewbox });
-					if($scope.polesResult.status != 200) {
-						console.log('Get poles failed: ' + $scope.polesResult.status);
-					}
+		            var viewbox = { 
+		            	"bottomleft": { "lat": sw.lat(), "lng": sw.lng() }, 
+		            	"topright": { "lat": ne.lat(), "lng": ne.lng()} 
+		            };
+
+		            poleData.getPoles({box: viewbox}).then(function(result) {
+		            	$scope.poles = result.d;
+		            	$scope.isLoading = false;
+		            }, function(error) {
+		            	console.log(error);
+		            	$scope.isLoading = false;
+		            });
+					
 				}
-			}
+			};
+
+			$scope.$watch('poles', function(newVal, oldVal) {
+				if(!$.isEmptyObject($scope.poles)) {
+					setMarkers();
+				}
+			});
+
+			function setMarkers(singleasset) {
+				var assets = $scope.poles;
+				var notfound = true;
+			    var count = 0;
+			    var text = 'Click <b>here</b> to report this light.';
+
+			    $.each(assets, function (index, asset) {
+			        if (asset.lat) {
+			            var location = new google.maps.LatLng(asset.lat, asset.lng);
+			            var image = 'images/green.png';
+			            if (asset.Status == 'reported') {
+			                image = 'images/red.png';
+			            }
+			            else if (asset.Status == 'held') {
+			                image = 'images/blue.png';
+			            }
+			            else if (asset.Status == 'nonausgrid') {
+			                image = 'images/pink.png';
+			            }
+			            var marker = new google.maps.Marker({
+			                position: location,
+			                map: $scope.myMap,
+			                icon: image,
+			                title: asset.AssetNo
+			            });
+
+			            //attachInfoWindow(marker);
+			            //if the singleasset matches the current asset, create a new info window open it on the marker
+			            //note that the asset may have a non-unique identifier due to the data, so only first match is returned
+			            if (singleasset && notfound && count == 0) {
+			                if (singleasset.AssetNo == asset.AssetNo) {
+			                    count++;
+			                    show = false;
+			                    notfound = false;
+			                    if (asset.Status == 'reported' || asset.Status == 'held') {
+			                        text = 'This has already been reported to Ausgrid and we are working on it';
+			                    }
+			                    else if (asset.Status == 'nonausgrid') {
+			                        text = 'Sorry, this light does not belong to Ausgrid. Please contact the council for this area';
+			                    }
+			                    var infowindow = new google.maps.InfoWindow(
+			                {
+			                    content: '<span class=formatText >' + asset.AssetNo + ', status:' + asset.Status + '</span><p>Light located! ' + text + '</p>',
+			                    size: new google.maps.Size(50, 50)
+			                });
+			                    infowindow.open($scope.myMap, marker);
+			                }
+			            }
+			        }
+			    });
+			};
 		}
 	]);
 });

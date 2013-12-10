@@ -3,7 +3,7 @@ require.config({
 	paths: {
 		async: '/vendor/requirejs/async',
 		angular: '/vendor/angularjs/angular',
-		jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min',
+		jquery: '/vendor/jquery-1.7.2.min',
 		domReady: '/vendor/requirejs/domReady',
 		angularRoute: '/vendor/angularjs/angular-route',
 		ui_event: '/vendor/angularUI/event',

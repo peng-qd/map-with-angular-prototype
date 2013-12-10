@@ -1,23 +1,20 @@
 define(['./module'], function (services) {
     'use strict';
-    services.factory('poleData', ['$http', 'sharedData', function($http, sharedData) {
-        var baseUrl = "http://localhost:50250/Streetlights.aspx/";
-    	return {
-    		getPoles: function(container) {
-                var result;
-                $http({
-                    url: baseUrl + "GetAssets",
-                    method: 'post',
-                    data: container
-                }).success(function(data, status, headers, config) {
-                    return {status: status, data: data};
-                }).error(function(data, status, headers, config) {
-                    return {status: status, data: data};
-                });
-            },
-            getPole: function() {
-
+    services.factory('poleData', function($http) {
+        var baseUrl = '/data/';
+        var poleService = {
+            getPoles: function(container) {
+                var promise = $http
+                    .post(baseUrl + 'poles.json', container)
+                    .then(function(response) {
+                        console.log(response);
+                        return response.data;
+                    }
+                );
+                return promise;
             }
-    	};
-    }]);
+        };
+
+        return poleService;
+    });
 });
