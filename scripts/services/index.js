@@ -1,0 +1,1 @@
+define(['./sharedData'], function () {});

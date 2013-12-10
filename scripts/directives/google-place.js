@@ -1,6 +1,6 @@
 define(['./module'], function (directives) {
 	'use strict';
-	directives.directive('googleplace', function () {
+	directives.directive('googleplace', ['sharedData',function (sharedData) {
 		return {
 			require: 'ngModel',
 			link: function(scope, element, attrs, model) {
@@ -14,22 +14,18 @@ define(['./module'], function (directives) {
 					scope.$apply(function() {
 						var place = scope.gPlace.getPlace();
 
-						//TODO: refactory this feature later, using scope variable here, 
-						//so the directive has dependence with controller
 						if(!place.geometry) {
 							return;
 						}
 						
 						if(place.geometry.viewport) {
-							scope.viewport = place.geometry.viewport;
-							scope.location = {};
+							sharedData.setCurrentViewport(place.geometry.viewport);
 						} else {
-							scope.location = place.geometry.location;
-							scope.viewport = {};
+							sharedData.setCurrentLocation(place.geometry.location);
 						}  
 					});
 				});
 			}
 		};
-	});
+	}]);
 });
