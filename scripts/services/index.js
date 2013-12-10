@@ -1,1 +1,1 @@
-define(['./sharedData'], function () {});
+define(['./sharedData', './poleData'], function () {});

@@ -3,8 +3,10 @@ define(['./module'], function (services) {
     services.factory('sharedData', function() {
     	var currentLocation = {};
     	var currentViewport = {};
+    	var loadingFlag = true;
 
     	return {
+    		isLoading: loadingFlag,
     		setCurrentLocation: function(value) {
     			currentLocation = value;
     			currentViewport = {};

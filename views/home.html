@@ -1,6 +1,7 @@
 <h1>Homepage</h1>
+<div ng-show="isLoading">Please wait, loading streetlights</div>
 <section id="map">
-  <div ui-map="myMap" ui-options="mapOptions" class="map-canvas"></div>
+  <div ui-map="myMap" ui-options="mapOptions" class="map-canvas" ui-event="{'map-zoom_changed': 'setMarkers(myMap.getZoom())'}"></div>
 </section>
 <div class="container" style="padding:10px 0;">
 	<!-- Somehow placeholder is working for google autocomplete in IE8 -->
