@@ -3,8 +3,12 @@ define(['./module'], function (services) {
     services.factory('sharedData', function() {
     	var currentLocation = {};
     	var currentViewport = {};
+        var currentMarker = {};
+        var currentAddress = '';
 
     	return {
+            currentMarker: currentMarker,
+            currentAddress: currentAddress,
     		setCurrentLocation: function(value) {
     			currentLocation = value;
     			currentViewport = {};

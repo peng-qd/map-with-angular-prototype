@@ -1,8 +1,23 @@
 define(['./module'], function(controllers) {
 	'use strict';
 
-	controllers.controller('HomeCtrll', ['$scope','sharedData','poleData',
-		function($scope, sharedData, poleData) {
+	controllers.controller('HomeCtrll', ['$scope','$compile','$location','sharedData','poleData',
+		function($scope, $compile, $location, sharedData, poleData) {
+			$scope.chosenPlace = '';
+			$scope.chosenPoleNumber = '';
+			$scope.isLoading = false;
+			$scope.poles = {};
+
+			$scope.marker = {};
+    		$scope.markerAddress = '';
+
+			var infoWindowArray = [];
+			var markersArray = [];
+			var geocoder = new google.maps.Geocoder();
+
+			var content = '<div id="infowindow_content" ng-include src="\'/views/infowindow.html\'"></div>';
+			var compiled = $compile(content)($scope);
+
 			$scope.mapOptions = {
 				center: new google.maps.LatLng(window.mySettings.defaultLati, window.mySettings.defaultLongi),
 				zoom: 15,
@@ -12,11 +27,6 @@ define(['./module'], function(controllers) {
 				streetViewControl: false, 
 				mapTypeControl: false
 			};
-
-			$scope.chosenPlace = '';
-			$scope.chosenPoleNumber = '';
-			$scope.isLoading = false;
-			$scope.poles = {};
 
 			// When click the search button, the map will be changed to the chosen address
 			$scope.searchAddress = function() {
@@ -43,6 +53,7 @@ define(['./module'], function(controllers) {
 		            	"topright": { "lat": ne.lat(), "lng": ne.lng()} 
 		            };
 
+		            // retrieve poles from Ausgrid service
 		            poleData.getPoles({box: viewbox}).then(function(result) {
 		            	$scope.poles = result.d;
 		            	$scope.isLoading = false;
@@ -50,7 +61,10 @@ define(['./module'], function(controllers) {
 		            	console.log(error);
 		            	$scope.isLoading = false;
 		            });
-					
+				} else {
+					$scope.poles = {};
+					resetMarkers();
+					resetInfoWindows();
 				}
 			};
 
@@ -86,7 +100,8 @@ define(['./module'], function(controllers) {
 			                title: asset.AssetNo
 			            });
 
-			            //attachInfoWindow(marker);
+		            	markersArray.push(marker);
+			            attachInfoWindow(marker);
 			            //if the singleasset matches the current asset, create a new info window open it on the marker
 			            //note that the asset may have a non-unique identifier due to the data, so only first match is returned
 			            if (singleasset && notfound && count == 0) {
@@ -101,15 +116,90 @@ define(['./module'], function(controllers) {
 			                        text = 'Sorry, this light does not belong to Ausgrid. Please contact the council for this area';
 			                    }
 			                    var infowindow = new google.maps.InfoWindow(
-			                {
-			                    content: '<span class=formatText >' + asset.AssetNo + ', status:' + asset.Status + '</span><p>Light located! ' + text + '</p>',
-			                    size: new google.maps.Size(50, 50)
-			                });
+				                {
+				                    content: '<span class=formatText >' + asset.AssetNo + ', status:' + asset.Status + '</span><p>Light located! ' + text + '</p>',
+				                    size: new google.maps.Size(50, 50)
+				                });
 			                    infowindow.open($scope.myMap, marker);
 			                }
 			            }
 			        }
 			    });
+			};
+
+			//attach custom infowindow to marker
+			function attachInfoWindow(marker) {
+			    //create a new infowindow object
+			    var infowindow = new google.maps.InfoWindow({ content: 'empty', size: new google.maps.Size(50, 50) });
+
+			    //add to array so can manage open and close
+			    infoWindowArray.push(infowindow);
+			    //add click handler
+			    google.maps.event.addListener(marker, 'click', function () {
+			        clickMarker(marker, infowindow)
+			    });
+			};
+
+			//on click geocode the address from the lat long of the marker and display it
+			function clickMarker(marker, infowindow) {
+			    if (marker.getIcon() == 'images/green.png') {
+			        geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+			            if (status == google.maps.GeocoderStatus.OK) {
+			                if (results[0]) {
+			                	// hacking: sometime ng-include is not working for second time
+			                	if(!compiled[0].nextSibling) {
+			                		compiled = $compile(content)($scope);
+			                	}
+
+		                		$scope.marker = marker;
+		                		$scope.markerAddress = results[0].formatted_address;
+
+		                		$scope.$apply();
+              					infowindow.content = compiled[0].nextSibling;
+
+			                    resetInfoWindows();
+			                    infowindow.open($scope.myMap, marker);
+			                }
+			            }
+			        });
+			    }
+			    else if (marker.getIcon() == 'images/red.png' || marker.getIcon() == 'images/blue.png') {
+			        infowindow.content = '<span class=formatText ><p>' + marker.title + '</p></span><p>This light has already been reported to us,<br /> we are working on fixing it.</p>';
+			        resetInfoWindows();
+			        infowindow.open($scope.myMap, marker);
+			    }
+			    else {
+			        infowindow.content = '<span class=formatText ><p>' + marker.title + '</p></span><p>This light does not belong to Ausgrid, please contact the council</p>';
+			        resetInfoWindows();
+			        infowindow.open($scope.myMap, marker);
+			    }
+
+			}
+
+			//clear all current markers
+			function resetMarkers() {
+			    if (markersArray.length) {
+			        for (var i = 0; i < markersArray.length; i++) {
+			            markersArray[i].setMap(null);
+			        }
+			        markersArray.length = 0;
+			    }
+			}
+
+
+			//clear all infowindows
+			function resetInfoWindows() {
+			    if (infoWindowArray.length) {
+			        for (var i = 0; i < infoWindowArray.length; i++) {
+			            infoWindowArray[i].close();
+			        }
+			    }
+			}
+
+			$scope.reportAsset = function () {
+				sharedData.currentMarker = $scope.marker;
+				sharedData.currentAddress = $scope.markerAddress;
+				$location.path('/report');
 			};
 		}
 	]);

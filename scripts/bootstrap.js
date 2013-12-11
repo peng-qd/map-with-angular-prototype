@@ -29,10 +29,10 @@ function init(ng) {
 					ng.bootstrap(document, ['app']);
 				},
 				function() {
-					console.log('wait for 3 sec for retrieving geo location but failed');
+					console.log('wait for 1.5 sec for retrieving geo location but failed');
 					ng.bootstrap(document, ['app']);
 				},
-				{timeout:3000}
+				{timeout:1500}
 			);
 		} else {
 			window.console.log('browser does not support geo location');
