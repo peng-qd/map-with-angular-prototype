@@ -2,3 +2,18 @@
 <p>This is form</p>
 <p>{{marker.title}}</p>
 <p>{{markerAddress}}</p>
+
+<section id="map">
+  <div ui-map="myMap" ui-options="mapOptions" class="map-canvas"></div>
+</section>
+<input id="addressSearchBox" type="text" class="input-block-level" placeholde="e.g. 500 George Street Sydney NSW 2000" ng-model="chosenPlace">
+<div class="controlContainer">
+	<select name="ddlEquipment" id="ddlEquipment" class="ddl" customSelectbox>
+		<option value="">-- Select --</option>
+		<option value="Large substation/building">Large substation/building</option>
+		<option value="Kiosk/Small substation">Kiosk/Small substation</option>
+		<option value="Turret/Pillar box">Turret/Pillar box</option>
+		<option value="Power pole">Power pole</option>
+		<option value="Cable pit">Cable pit</option>
+	</select>
+</div>

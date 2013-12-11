@@ -1,1 +1,1 @@
-define(['./google-place','./placehold'], function () {});
+define(['./google-place','./placehold','./custom-selectbox'], function () {});

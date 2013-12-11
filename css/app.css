@@ -23,3 +23,29 @@ html,body {
 
 /* Fix for using bootstrap... */
 .gmnoprint img { max-width: none; }
+
+/*-------------------   Select Box  ------------------------------*/
+.sbHolder { 	-webkit-border-radius: 2px; 
+	border-radius: 2px; 
+	background: #e9eff2; 
+	border: solid 1px #c4c8ca; 
+	font-family: Arial, sans-serif; 
+	font-size: 16px; 
+	font-weight: normal; 
+	height: 31px; 
+	position: relative; 
+	width: 250px; margin: 0px 20px 0px 20px; -webkit-box-shadow: 0px 1px 1px 1px #C9C9C9; box-shadow: 0px 1px 1px 1px #C9C9C9; margin-top: 10px;}
+	
+.sbHolder:focus .sbSelector { height: 31px; left: 0; line-height: 31px; outline: none; overflow: hidden; position: absolute; text-indent: 10px; top: 0; width: 240px; }
+.sbSelector { height: 31px; left: 0; line-height: 31px; outline: none; overflow: hidden; position: absolute; text-indent: 10px; top: 0; width: 240px; }
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover { color: #666666; outline: none; text-decoration: none; }
+.sbToggle { background: url('/images/dropDownArrow.png') no-repeat; display: block; height: 31px; outline: none; position: absolute; right: 0; top: 0; width: 45px; }
+.sbToggle:hover { background: url('/images/dropDownArrow.png') no-repeat; }
+.sbToggleOpen { background: url('/images/dropDownArrow.png') no-repeat; }
+.sbToggleOpen:hover { background: url('/images/dropDownArrow.png') no-repeat; }
+.sbOptions { -webkit-border-radius: 0px 0px 3px 3px; border-radius: 0px 0px 3px 3px; background-color: #212121; border: solid 1px #515151; list-style: none; left: -1px; margin: 0; padding: 0; position: absolute; width: 250px; overflow: visible; z-index: 1; min-height: 265px; }
+.sbOptions li { padding: 0 7px; }
+.sbOptions a { border-bottom: dotted 1px #515151; display: block; outline: none; padding: 12px 0 12px 3px; }
+.sbOptions a:link, .sbOptions a:visited { color: #ddd; text-decoration: none; }
+.sbOptions a:hover, .sbOptions a:focus, .sbOptions a.sbFocus { color: #808080; }
+.sbOptions li.last a { border-bottom: none; }

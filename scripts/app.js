@@ -4,7 +4,7 @@ define([
     'controllers/index',
     'directives/index',
     //'filters/index',
-    'services/index'
+    'services/index',
 ], function (ng) {
     'use strict';
 
