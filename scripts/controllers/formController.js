@@ -7,6 +7,7 @@ define(['./module'], function(controllers) {
 			$scope.marker = sharedData.currentMarker;
 
 			$scope.chosenPlace = '';
+			$scope.chosenEquipment = '';
 
 			$scope.mapOptions = {
 				center: new google.maps.LatLng(window.mySettings.defaultLati, window.mySettings.defaultLongi),

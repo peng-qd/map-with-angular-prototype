@@ -1,12 +1,11 @@
 define(['./module'], function (directives) {
 	'use strict';
-	directives.directive('customSelectbox', function () {
+	directives.directive('customselectbox', function () {
 		return {
-			//restrict: 'A',
+			restrict: 'A',
 			require: 'ngModel',
 			link: function(scope, element, attrs, model) {
-				window.console.log('selectbox');
-				//$(element).selectbox();
+				$(element).selectbox();
 			}
 		};
 	});
