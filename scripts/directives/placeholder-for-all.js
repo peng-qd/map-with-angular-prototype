@@ -1,17 +1,26 @@
 define(['./module'], function (directives) {
 	'use strict';
-	directives.directive('placehold', function () {
+	directives.directive('placeholderforall', function () {
 		return {
+			restrict: 'A',
 			require: 'ngModel',
 			link: function(scope, element, attrs, model) {
 				var value;
       
 				var placehold = function () {
-					element.val(attrs.placehold)
+					element.val(attrs.placeholder)
+					element.addClass('placeholder');
 				};
 				var unplacehold = function () {
 					element.val('');
+					element.removeClass('placeholder');
 				};
+
+				// detect modern browsers
+				var dummy = document.createElement('input');
+				if(dummy.placeholder != undefined){
+					return;
+				}
 
 				scope.$watch(attrs.ngModel, function (val) {
 					value = val || '';
@@ -29,7 +38,7 @@ define(['./module'], function (directives) {
 					if (!val) {
 						placehold();
 						value = '';
-						return attrs.placehold;
+						return attrs.placeholder;
 					}
 					return val;
 				});

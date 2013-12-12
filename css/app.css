@@ -49,3 +49,17 @@ html,body {
 .sbOptions a:link, .sbOptions a:visited { color: #ddd; text-decoration: none; }
 .sbOptions a:hover, .sbOptions a:focus, .sbOptions a.sbFocus { color: #808080; }
 .sbOptions li.last a { border-bottom: none; }
+
+
+input.placeholder { 
+    color:#999;
+    font-style: italic;
+}
+::-webkit-input-placeholder    { 
+    color:#999;
+    font-style: italic;
+}
+input:-moz-placeholder { 
+    color:#999;
+    font-style: italic;
+}

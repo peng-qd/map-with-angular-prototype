@@ -30,7 +30,7 @@ require.config({
 		},
 		icheck: {
 			deps: ['jquery']
-		}
+		},
 	},
 
 	deps: ['bootstrap']

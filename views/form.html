@@ -6,8 +6,7 @@
 <section id="map">
   <div ui-map="myMap" ui-options="mapOptions" class="map-canvas"></div>
 </section>
-
-<input id="addressSearchBox" type="text" class="input-block-level" placehold="e.g. 500 George Street Sydney NSW 2000" ng-model="chosenPlace">
+<br>
 
 <div class="controlContainer">
 	<select name="ddlEquipment" id="ddlEquipment" class="ddl" ng-model="chosenEquipment" customSelectbox>
@@ -20,6 +19,11 @@
 	</select>
 </div>
 <p>You have selected {{chosenEquipment}}</p>
+
+<input id="addressSearchBox" type="text" class="input-block-level" placeholder="e.g. 500 George Street Sydney NSW 2000" ng-model="chosenPlace" placeholderforall>
+<p>{{chosenPlace}}</p>
+
+
 
 <div>
 	<label>Checkbox:</label><input type="checkbox" name="" ng-model="chkValue" icheck><br>

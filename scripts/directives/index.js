@@ -1,1 +1,5 @@
-define(['./google-place','./placehold','./custom-selectbox','./icheck'], function () {});
+define([
+	'./google-place',
+	'./placeholder-for-all',
+	'./custom-selectbox',
+	'./icheck'], function () {});
