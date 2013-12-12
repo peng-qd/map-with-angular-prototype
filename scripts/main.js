@@ -8,10 +8,12 @@ require.config({
 		angularRoute: '/vendor/angularjs/angular-route',
 		ui_event: '/vendor/angularUI/event',
 		ui_map: '/vendor/angularUI/ui-map',
+		custom_select: '/vendor/jquery.selectbox.0.2.min',
+		icheck: '/vendor/icheck/jquery.icheck.min',
 	},
 	shim: {
 		angular: {
-			deps: ['jquery'],
+			deps: ['jquery','custom_select','icheck'],
 			exports: 'angular'
 		},
 		angularRoute: {
@@ -23,6 +25,12 @@ require.config({
 		ui_map: {
 			deps: ['ui_event']
 		},
+		custom_select: {
+			deps: ['jquery']
+		},
+		icheck: {
+			deps: ['jquery']
+		}
 	},
 
 	deps: ['bootstrap']
