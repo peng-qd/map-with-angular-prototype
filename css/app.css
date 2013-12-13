@@ -23,6 +23,7 @@ html,body {
 
 /* Fix for using bootstrap... */
 .gmnoprint img { max-width: none; }
+#map img { max-width: none; }
 
 /*-------------------   Select Box  ------------------------------*/
 .sbHolder { 	-webkit-border-radius: 2px; 
@@ -61,5 +62,24 @@ input.placeholder {
 }
 input:-moz-placeholder { 
     color:#999;
+    font-style: italic;
+}
+::-webkit-input-placeholder {
+   color:#999;
+    font-style: italic;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color:#999;
+    font-style: italic;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color:#999;
+    font-style: italic;
+}
+
+:-ms-input-placeholder {  
+   color:#999;
     font-style: italic;
 }
