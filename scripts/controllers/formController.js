@@ -10,6 +10,7 @@ define(['./module'], function(controllers) {
 			$scope.chosenEquipment = '';
 			$scope.chkValue = false;
 			$scope.radValue = '';
+			$scope.refInfo = '';
 
 			$scope.mapOptions = {
 				center: new google.maps.LatLng(window.mySettings.defaultLati, window.mySettings.defaultLongi),
