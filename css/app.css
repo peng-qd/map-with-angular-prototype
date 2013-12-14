@@ -83,3 +83,49 @@ input:-moz-placeholder, textarea:-moz-placeholder {
    color:#999;
     font-style: italic;
 }
+
+/*-------------------   Landing Result Div  ------------------------------*/
+.result-div{
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 205px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.4);
+    box-shadow: 0 1px 2px rgba(0,0,0,.4);
+}
+.result-header{
+    background-color: #E4F1FA;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+.result-content{
+    padding: 10px;
+}
+.result-div .result-button .button{
+    font-size: 13px;
+    width: 185px;
+    padding: 6px 22px;
+    margin:20px 0  10px 0;
+}
+.result-content p{
+    margin-right: 0;
+    line-height: 1.2em;
+    font-weight: normal;
+}
+.result-div .pole-number-label{
+    color: #0087C7;
+    display: block;
+    font-size: 15px;
+    width: 50px;
+}
+.result-div .pole-location{
+    float: right;
+    width: 95px;
+    border-left: 1px solid #BCBCBC;
+}
+.result-div .pole-location p{
+    font-size: 13px;
+    padding-left: 10px;
+}

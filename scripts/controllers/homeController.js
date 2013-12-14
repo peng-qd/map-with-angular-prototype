@@ -10,12 +10,15 @@ define(['./module'], function(controllers) {
 
 			$scope.marker = {};
     		$scope.markerAddress = '';
+    		$scope.markerStatue = '';
 
 			var infoWindowArray = [];
+			var infoBoxArray = [];
 			var markersArray = [];
 			var geocoder = new google.maps.Geocoder();
 
-			var content = '<div id="infowindow_content" ng-include src="\'/views/infowindow.html\'"></div>';
+			//var content = '<div id="infowindow_content" ng-include src="\'/views/infowindow.html\'"></div>';
+			var content = '<div id="infowindow_content" ng-include src="\'/views/infobox.html\'"></div>';
 			var compiled = $compile(content)($scope);
 
 			$scope.mapOptions = {
@@ -97,11 +100,13 @@ define(['./module'], function(controllers) {
 			                position: location,
 			                map: $scope.myMap,
 			                icon: image,
-			                title: asset.AssetNo
+			                title: asset.AssetNo,
+			                customStatus: asset.Status,
 			            });
 
 		            	markersArray.push(marker);
-			            attachInfoWindow(marker);
+			            //attachInfoWindow(marker);
+			            attachInfoBox(marker);
 			            //if the singleasset matches the current asset, create a new info window open it on the marker
 			            //note that the asset may have a non-unique identifier due to the data, so only first match is returned
 			            if (singleasset && notfound && count == 0) {
@@ -127,6 +132,28 @@ define(['./module'], function(controllers) {
 			    });
 			};
 
+			function attachInfoBox(marker) {
+				var myOptions = {
+					disableAutoPan: false
+					,pixelOffset: new google.maps.Size(-140, 0)
+					,zIndex: null
+					,closeBoxMargin: "10px 2px 2px 2px"
+					,closeBoxURL: "/images/close.png"
+					,infoBoxClearance: new google.maps.Size(1, 1)
+					,isHidden: false
+					,pane: "floatPane"
+					,enableEventPropagation: false
+				};
+
+				var ib = new InfoBox(myOptions);
+
+				infoBoxArray.push(ib);
+				//add click handler
+			    google.maps.event.addListener(marker, 'click', function () {
+			        clickMarker(marker, ib)
+			    });
+			};
+
 			//attach custom infowindow to marker
 			function attachInfoWindow(marker) {
 			    //create a new infowindow object
@@ -141,6 +168,7 @@ define(['./module'], function(controllers) {
 			};
 
 			//on click geocode the address from the lat long of the marker and display it
+			/*
 			function clickMarker(marker, infowindow) {
 			    if (marker.getIcon() == 'images/green.png') {
 			        geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
@@ -174,7 +202,28 @@ define(['./module'], function(controllers) {
 			        infowindow.open($scope.myMap, marker);
 			    }
 
-			}
+			}*/
+			function clickMarker(marker, infobox) {
+		        geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+		            if (status == google.maps.GeocoderStatus.OK) {
+		                if (results[0]) {
+		                	// hacking: sometime ng-include is not working for second time
+		                	if(!compiled[0].nextSibling) {
+		                		compiled = $compile(content)($scope);
+		                	}
+
+	                		$scope.marker = marker;
+	                		$scope.markerAddress = results[0].formatted_address;
+
+	                		$scope.$apply();
+          					infobox.setContent(compiled[0].nextSibling.innerHTML);
+
+		                    //resetInfoBoxes();
+		                    infobox.open($scope.myMap, marker);
+		                }
+		            }
+		        });
+			};
 
 			//clear all current markers
 			function resetMarkers() {
@@ -194,6 +243,14 @@ define(['./module'], function(controllers) {
 			            infoWindowArray[i].close();
 			        }
 			    }
+			}
+
+			function resetInfoBoxes() {
+				if (infoBoxArray.length) {
+					for (var i = 0; i < infoBoxArray.length; i++) {
+			            infoBoxArray[i].close();
+			        }
+				}
 			}
 
 			$scope.reportAsset = function () {
