@@ -5,7 +5,7 @@ define([
 ], function(ng) {
 	'use strict';
 
-	require(['domReady'], function(domReady) {
+	require(['domReady','gmaps','infobox'], function(domReady) {
 		domReady(function() {
 			$('body').attr('ng-controller', 'RootCtrll');
 			init(ng);
@@ -15,7 +15,7 @@ define([
 
 // bootstrap the AuglarJS after Google API is loade and geo location is processed.
 function init(ng) {
-	require(['async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places'], function() {
+	
 		if (navigator.geolocation) {
 			console.log('browser supports geo location');
 			navigator.geolocation.getCurrentPosition(
@@ -29,15 +29,14 @@ function init(ng) {
 					ng.bootstrap(document, ['app']);
 				},
 				function() {
-					console.log('wait for 1.5 sec for retrieving geo location but failed');
+					console.log('wait for 0.5 sec for retrieving geo location but failed');
 					ng.bootstrap(document, ['app']);
 				},
-				{timeout:1500}
+				{timeout:500}
 			);
 		} else {
 			window.console.log('browser does not support geo location');
 			ng.bootstrap(document, ['app']);
 		}
-		
-	});
+
 }

@@ -10,6 +10,7 @@ require.config({
 		ui_map: '/vendor/angularUI/ui-map',
 		custom_select: '/vendor/jquery.selectbox.0.2.min',
 		icheck: '/vendor/icheck/jquery.icheck.min',
+		infobox: '/vendor/infobox',
 	},
 	shim: {
 		angular: {
@@ -31,7 +32,15 @@ require.config({
 		icheck: {
 			deps: ['jquery']
 		},
+		infobox: {
+			deps: ['gmaps']
+		},
 	},
 
 	deps: ['bootstrap']
+});
+
+// convert Google Maps into an AMD module
+define('gmaps', ['async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places'], function() {
+    return window.google.maps;
 });
