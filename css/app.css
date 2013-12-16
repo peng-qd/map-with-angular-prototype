@@ -129,3 +129,24 @@ input:-moz-placeholder, textarea:-moz-placeholder {
     font-size: 13px;
     padding-left: 10px;
 }
+
+.working-box , .reported-box, .held-box, .nonausgrid-box, .result-header .working-box, .result-header .close-icon, .finish-header .close-icon{
+    background-image: url('/images/Status_Sprites.png');
+    width: 21px;
+    height:21px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-top:2px;
+}
+.working-box, .result-header .working-box{
+    background-position: -1px -1px;
+}
+.reported-box{
+    background-position: -23px -1px;
+}
+.held-box{
+    background-position: -45px -1px;
+}
+.nonausgrid-box{
+    background-position: -67px -1px;
+}

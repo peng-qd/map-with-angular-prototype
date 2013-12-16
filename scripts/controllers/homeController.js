@@ -83,25 +83,50 @@ define(['./module'], function(controllers) {
 			    var count = 0;
 			    var text = 'Click <b>here</b> to report this light.';
 
+			    var imageURL = '/images/Status_Sprites.png';
+	            var workingImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(1, 1));
+            	var reportedImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(23, 1));
+	            var heldImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(45, 1));
+                var nonausgridImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(67, 1));
+
+                var workingHoverImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(1, 23));
+            	var reportedHoverImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(23, 23));
+	            var heldHoverImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(45, 23));
+                var nonausgridHoverImage = new google.maps.MarkerImage(imageURL, new google.maps.Size(21, 21), new google.maps.Point(67, 23));
+
 			    $.each(assets, function (index, asset) {
 			        if (asset.lat) {
 			            var location = new google.maps.LatLng(asset.lat, asset.lng);
-			            var image = 'images/green.png';
+
+			            var image = workingImage;
+			            var hoverImage = workingHoverImage;
 			            if (asset.Status == 'reported') {
-			                image = 'images/red.png';
+			                image = reportedImage;
+			                hoverImage = reportedHoverImage;
 			            }
 			            else if (asset.Status == 'held') {
-			                image = 'images/blue.png';
+			                image = heldImage;
+			                hoverImage = heldHoverImage;
 			            }
 			            else if (asset.Status == 'nonausgrid') {
-			                image = 'images/pink.png';
+			                image = nonausgridImage;
+			                hoverImage = nonausgridHoverImage;
 			            }
+		            	
+
 			            var marker = new google.maps.Marker({
 			                position: location,
 			                map: $scope.myMap,
 			                icon: image,
 			                title: asset.AssetNo,
 			                customStatus: asset.Status,
+			            });
+
+			            google.maps.event.addListener(marker, "mouseover", function () {
+			                marker.setIcon(hoverImage);
+			            });
+			            google.maps.event.addListener(marker, "mouseout", function () {
+			                marker.setIcon(image);
 			            });
 
 		            	markersArray.push(marker);
