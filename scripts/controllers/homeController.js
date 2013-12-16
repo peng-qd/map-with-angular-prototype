@@ -245,6 +245,22 @@ define(['./module'], function(controllers) {
 
 		                    //resetInfoBoxes();
 		                    infobox.open($scope.myMap, marker);
+
+		                    //close button hover state change
+		                    google.maps.event.addListener(infobox, 'domready', function() {
+							//Have to put this within the domready or else it can't find the div element (it's null until the InfoBox is opened)
+
+							    $(infobox.div_).find('img[src="/images/close.png"]').hover(
+							        function() {
+							            //This is called when the mouse enters the element
+							            $(this).attr('src','/images/close-hover.png');
+							        },
+							        function() {
+							            //This is called when the mouse leaves the element
+							            $(this).attr('src','/images/close.png');
+							        }
+							    );
+							});
 		                }
 		            }
 		        });
