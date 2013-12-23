@@ -41,8 +41,8 @@
 </div>
 
 <h3>e-mail</h3>
-{{email}}
-<input name="email" placeholder="email" ng-model="email" notAllowedCharacters>
+{{email}}<br/>
+<input name="email" placeholder="email" ng-model="email" notallowedcharacters="">
 <span ng-show='testform.email.$error.required'>This e-mail is required!</span>
 <span ng-show='testform.email.$error.notAllowedCharacters'>All text fields should not allow braces or quotes &lt;&gt; (){}[]"'</span>
 <br>is form valid: {{testform.$valid}}

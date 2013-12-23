@@ -1,26 +1,29 @@
 define(['./module'], function (directives) {
     'use strict';
-    directives.directive('notAllowedCharacters', function () {
+    directives.directive('notallowedcharacters', function () {
         return {
+            restrict: 'A',
             require: 'ngModel',
-            link: function(scope, elm, attrs, ctrl) {
+            link: function(scope, elm, attrs, model) {
                 var notAllowedCharacters = ["<",">","{","}","(",")","[","]","'","\""];
 
-                scope.$watch(attrs['ngModel'], function(newValue){
+                function validate() {
+                    var newValue = model.$viewValue;
                     console.log(newValue);
 
                     for(var i = 0; i < notAllowedCharacters.length; i++) {
-                        if(newValue.indexOf(notAllowedCharacters[i]) == -1) {
-                            ctrl.$setValidity('notAllowedCharacters', true);
-                            
-                            return newValue;
+                        if(newValue.indexOf(notAllowedCharacters[i]) === -1) {
+                            model.$setValidity('notAllowedCharacters', true);
                         } else {
-                            ctrl.$setValidity('notAllowedCharacters', false);                    
-                            
-                            return undefined;
+                            model.$setValidity('notAllowedCharacters', false);   
+                            break;              
                         }
                     }
-                });
+                }
+
+                scope.$watch( function() {
+                    return model.$viewValue;
+                }, validate);
             }
         };
     });
