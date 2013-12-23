@@ -2,4 +2,5 @@ define([
 	'./google-place',
 	'./placeholder-for-all',
 	'./custom-selectbox',
-	'./icheck'], function () {});
+	'./icheck',
+	'./validate-not-allowed-characters'], function () {});

@@ -12,6 +12,8 @@ define(['./module'], function(controllers) {
 			$scope.radValue = '';
 			$scope.refInfo = '';
 
+			$scope.email = '';
+
 			$scope.mapOptions = {
 				center: new google.maps.LatLng(window.mySettings.defaultLati, window.mySettings.defaultLongi),
 				zoom: 15,
@@ -20,6 +22,11 @@ define(['./module'], function(controllers) {
 				zoomControlOptions: {  style: google.maps.ZoomControlStyle.SMALL }, 
 				streetViewControl: false, 
 				mapTypeControl: false
+			};
+
+			$scope.submitForm = function() {
+				$scope.testform.email.$setValidity('required',!($scope.email.length == 0));
+				console.log($scope.testform.$valid);
 			};
 		}
 	]);

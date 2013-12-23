@@ -39,3 +39,13 @@
 	ng-model="refInfo" placeholderforall></textarea>
 	Text: {{refInfo}}
 </div>
+
+<h3>e-mail</h3>
+{{email}}
+<input name="email" placeholder="email" ng-model="email" notAllowedCharacters>
+<span ng-show='testform.email.$error.required'>This e-mail is required!</span>
+<span ng-show='testform.email.$error.notAllowedCharacters'>All text fields should not allow braces or quotes &lt;&gt; (){}[]"'</span>
+<br>is form valid: {{testform.$valid}}
+<br>email errors: {{testform.email.$error | json}}
+
+<input type="button" value="Submit Data" ng-click="submitForm()"/>
