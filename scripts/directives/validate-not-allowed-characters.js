@@ -16,7 +16,9 @@ define(['./module'], function (directives) {
                             $(element).siblings('.not-allowed-message').remove();
                         } else {
                             model.$setValidity('notAllowedCharacters', false);   
-                            $(element).after("<span class='not-allowed-message'>The text fields should not allow braces or quotes &lt;&gt;(){}[]&quot'</span>");
+                            if($(element).siblings('.not-allowed-message').length == 0) {
+                                $(element).after("<span class='not-allowed-message'>The text fields should not allow braces or quotes &lt;&gt;(){}[]&quot'</span>");
+                            }
                             break;              
                         }
                     }
