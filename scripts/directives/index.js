@@ -3,4 +3,5 @@ define([
 	'./placeholder-for-all',
 	'./custom-selectbox',
 	'./icheck',
-	'./validate-not-allowed-characters'], function () {});
+	'./validate-not-allowed-characters',
+	'./custom-radio'], function () {});

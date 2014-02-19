@@ -150,3 +150,16 @@ input:-moz-placeholder, textarea:-moz-placeholder {
 .nonausgrid-box{
     background-position: -67px -1px;
 }
+
+/*styles for mobile radio button*/
+.switch-off {
+    background: transparent url('/images/switches.png') repeat scroll 0px 27px;
+    display: block;
+    width: 94px;
+    height: 27px;
+    cursor: default;
+    outline: none;
+}
+.switch-on {
+    background-position: 0px 0px;
+}

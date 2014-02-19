@@ -32,6 +32,13 @@
 	<input type="radio" name="iCheck" ng-model="radValue" value="radio1" icheck>
 	<input type="radio" name="iCheck" ng-model="radValue" value="radio2" icheck>
 	radio value: {{radValue}}
+	<input type="radio" name="demo1" id="mobileRadio" ng-model="mRadValue" value="true" data-not-selected="false" mobileradiobutton>
+	mobile radio value: {{mRadValue}}<br>
+	<br>
+	<div ng-switch on="mRadValue">
+		<a ng-switch-when="false" class="switch-off" ng-click="$parent.mRadValue=true"></a>
+		<a ng-switch-when="true" class="switch-off switch-on" ng-click="$parent.mRadValue=false"></a>
+	</div>
 </div>
 
 <div>
