@@ -1,6 +1,7 @@
 define([
 	'./rootController',
 	'./homeController', 
-	'./formController'
+	'./formController',
+	'./introController'
 	], function() {}
 );
