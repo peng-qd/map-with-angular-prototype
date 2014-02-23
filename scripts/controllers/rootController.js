@@ -7,22 +7,21 @@ define(['./module'], function(controllers) {
 			$scope.showHomeComponent = false;
 
 			// hide out the sublayouts out of ng-view
-	        $scope.$on('$locationChangeStart', function(event, newVal, oldVal) {
-	        	if($location.url() == "") return;
+	        $scope.$on('$routeChangeSuccess', function () {
+	            var path = $location.path();
 
-	        	var pathTo = newVal.substring(newVal.indexOf('#') + 1);
-	        	console.log('URL will be changed to the: ' + pathTo);
-
-	        	if(pathTo == '/') {
+	            if(path == '/') {
 	        		$scope.showIntro = true;
 	        		$scope.showHomeComponent = false;
-	        	} else if(pathTo == '/map') {
+	        	} else if(path == '/map') {
 	                $scope.showHomeComponent = true;
 	                $scope.showIntro = false;
 	            } else {
 	                $scope.showHomeComponent = false;
 	                $scope.showIntro = false;
 	            }
+
+	            console.log('URL change success to: ' + path);
 	        });
 		}
 	);

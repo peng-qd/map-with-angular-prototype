@@ -38,11 +38,12 @@ require.config({
 		},
 		infobox: {
 			deps: ['gmaps']
-		},
+		}
 	},
 
 	deps: ['bootstrap']
 });
+
 
 // convert Google Maps into an AMD module
 define('gmaps', ['async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places'], function() {

@@ -5,10 +5,10 @@ define([
 ], function(ng) {
 	'use strict';
 
-	require(['domReady','gmaps','infobox'], function(domReady) {
+	require(['domReady'], function(domReady) {
 		domReady(function() {
 			$('body').attr('ng-controller', 'RootCtrll');
-			init(ng);
+			ng.bootstrap(document, ['app']);
 		});
 	});
 });
