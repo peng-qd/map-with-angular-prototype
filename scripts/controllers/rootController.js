@@ -2,7 +2,7 @@ define(['./module'], function(controllers) {
 	'use strict';
 
 	controllers.controller('RootCtrll', 
-		function($scope, $location) {
+		function($scope, $location, $anchorScroll) {
 			$scope.showIntro = true;
 			$scope.showHomeComponent = false;
 

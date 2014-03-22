@@ -1,1 +1,1 @@
-define(['./sharedData', './poleData', './anchorScroll'], function () {});
+define(['./sharedData', './poleData'], function () {});
