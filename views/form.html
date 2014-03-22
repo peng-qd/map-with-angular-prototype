@@ -1,12 +1,7 @@
 <h1>Form page</h1>
-<p>This is form</p>
+<p id="formTitle">This is form</p>
 <p>{{marker.title}}</p>
 <p>{{markerAddress}}</p>
-
-<section id="map">
-  <div ui-map="myMap" ui-options="mapOptions" class="map-canvas"></div>
-</section>
-<br>
 
 <div class="controlContainer">
 	<select name="ddlEquipment" id="ddlEquipment" class="ddl" ng-model="chosenEquipment" customSelectbox>
@@ -49,9 +44,36 @@
 
 <h3>e-mail</h3>
 {{email}}<br/>
-<input name="email" placeholder="email" ng-model="email" notallowedcharacters="">
+<input id="emailField" name="email" placeholder="email" ng-model="email" notallowedcharacters="">
 <span ng-show='testform.email.$error.required'>This e-mail is required!</span>
 <br>is form valid: {{testform.$valid}}
 <br>email errors: {{testform.email.$error | json}}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <input type="button" value="Submit Data" ng-click="submitForm()"/>
